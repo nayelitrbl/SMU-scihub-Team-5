@@ -23,26 +23,4 @@ public class DepartmentController extends Controller {
         return ok(departments.render());
     }
 
-
-
-
-
-    /**
-     * This method renders frequentlyAskedQuestions.scala.html
-     * @return
-     */
-    public Result frequentlyAskedQuestions() {
-        return ok(frequentlyAskedQuestions.render());
-    }
-
-    /**
-     * This method renders popularQueries.scala.html
-     * @return
-     */
-    public Result popularQueries() {
-        return ok(popularQueries.render());
-    }
-
-
-
 }
