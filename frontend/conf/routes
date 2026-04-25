@@ -434,3 +434,6 @@ POST        /paper/searchPaper                                                  
 ########################################################## Graph #####################################################################
 GET         /graphs/research                                                                controllers.GraphController.researchInterest()
 GET         /file/:tableName/:challengeFileType/:tableRecorderId                            controllers.FileController.getFile(tableName: String, challengeFileType: String, tableRecorderId: String)
+
+########################################################## Department List ##############################################################
+GET         /departments                                                                         controllers.DepartmentController.departmentList()
