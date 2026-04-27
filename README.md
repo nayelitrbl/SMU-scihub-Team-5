@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SMU Scientific Hub
 
 This portal aims to provide an open platform that supports and facilitates collaborations between SMU and local industry. Industry can publish a challenge, and our platform will recommend SMU researcher(s), based on AI, Machine Learning, Deep Learning, Natural Language Processing, Knowledge Graph, and Data Mining techniques.
@@ -30,3 +31,6 @@ For contributors, please follow these guidelines when making changes to the code
 - Submit your changes via a pull request for review and merging.
 
 By following this process, we ensure that all code changes are tracked and reviewed properly before being merged into the main project.
+=======
+# SMU-scihub-Team-5
+>>>>>>> 5879c9407b43e71c0257a4214399ae4ea5eb4e40
