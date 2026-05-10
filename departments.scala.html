@@ -1,0 +1,207 @@
+@()
+
+@import helper._
+@import Long._
+
+@scripts = {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                //?
+            });
+
+            function reinitIframe() {
+                var iframe = document.getElementById("description");
+                try {
+                    var bHeight = iframe.contentWindow.document.body.scrollHeight;
+                    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                    var height = Math.max(bHeight, dHeight);
+                    iframe.height = height;
+                } catch (ex) {
+                }
+            }
+
+            window.setInterval("reinitIframe()", 200);
+
+
+
+            @***** Change project viewpoint, refreshing the screen *******@
+            function changeView(view){
+                $.ajax({
+                    url: "/updateProjectZone/" + view,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: "GET"
+                }).done(function (data) {
+                    window.location.reload();
+                });
+            }
+
+            @***** Show department information *******@
+            function openModal(element){
+                const name = element.getAttribute("data-name");
+                const faculty = element.getAttribute("data-faculty");
+                const projects = element.getAttribute("data-projects");
+
+                document.getElementById("modal-title").innerText = name + " Department Profile";
+                document.getElementById("modal-faculty").innerText = "Faculty List: " + faculty;
+                document.getElementById("modal-projects").innerText = "Projects List: " + projects;
+
+                document.getElementById("modal").classList.remove("hidden");
+                document.body.style.overflow = "hidden";
+            }
+
+            @***** Hide department information *******@
+            function closeModal(){
+                document.getElementById("modal").classList.add("hidden");
+                document.body.style.overflow = "auto";
+            }
+
+    </script>
+    <style>
+            .department-info-container{
+                cursor: pointer;
+            }
+
+            .department-modal {
+                position: fixed;
+                inset: 0;
+                width: 100vw;
+                height: 100vh;
+
+
+                background-color: rgba(0,0,0,0.6);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .modal-content{
+                background: white;
+                width: 80%;
+                max-height: 60vh;
+                overflow-y: auto;
+                padding: 20px;
+                border-radius: 8px;
+                position: relative;
+            }
+
+            .close-button{
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+
+
+    </style>
+
+}
+
+@main("Departments", scripts) {
+    <link href='@routes.Assets.at("stylesheets/quill.snow.css")'
+    rel="stylesheet" />
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/plugins/quill.js")'></script>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 l10 offset-l1">
+                <div class="card-panel z-depth-0">
+                    <h4 class="form-departments-heading center">Departments</h4>
+                    <div class="row">
+                        <div class="col s12 m10 offset-m1">
+                            <ul class="collection" id="departments">
+                                <li class="collection-item department">
+                                        <div class = "department-info-container"
+                                            style="font-weight: bold"
+                                            data-name="Computer Science"
+                                            data-faculty="faculty list..."
+                                            data-projects="projects list..."
+                                            onclick="openModal(this)">
+                                            Computer Science
+                                        </div>
+
+                                    <p>
+                                        <small>number of faculty, number of active projects, top 5 research keywords !!! </small>
+                                    </p>
+                                </li>
+                                <li class="collection-item department">
+                                    <div class = "department-info-container"
+                                        style="font-weight: bold"
+                                        data-name="Mechanical Engineering"
+                                        data-faculty="faculty list..."
+                                        data-projects="projects list..."
+                                        onclick="openModal(this)">
+                                        Mechanical Engineering
+                                    </div>
+                                    <p>
+                                        <small>number of faculty, number of active projects, top 5 research keywords !!! </small>
+                                    </p>
+                                </li>
+
+                            <li class="collection-item department">
+                                <div class = "department-info-container"
+                                    style="font-weight: bold"
+                                    data-name="Electrical and Computer Engineering"
+                                    data-faculty="faculty list..."
+                                    data-projects="projects list..."
+                                    onclick="openModal(this)">
+                                    Electrical and Computer Engineering
+                                </div>
+                                    <p>
+                                        <small>number of faculty, number of active projects, top 5 research keywords !!! </small>
+                                    </p>
+                                </li>
+                                <li class="collection-item department">
+                                    <div class = "department-info-container"
+                                        style="font-weight: bold"
+                                        data-name="Operations Research & Engineering Management"
+                                        data-faculty="faculty list..."
+                                        data-projects="projects list..."
+                                        onclick="openModal(this)">
+                                        Operations Research & Engineering Management
+                                    </div>
+                                    <p>
+                                        <small>number of faculty, number of active projects, top 5 research keywords !!! </small>
+                                    </p>
+                                </li>
+
+                                <li class="collection-item department">
+                                    <div class = "department-info-container"
+                                        style="font-weight: bold"
+                                        data-name="Civil & Environmental Engineering"
+                                        data-faculty="faculty list..."
+                                        data-projects="projects list..."
+                                        onclick="openModal(this)">
+                                        Civil & Environmental Engineering
+                                    </div>
+                                    <p>
+                                        <small>number of faculty, number of active projects, top 5 research keywords !!! </small>
+                                    </p>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal" class="department-modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" class="department-profile"></h2>
+            <p id="modal-faculty" class="department-faculty-list"></p>
+            <p id="modal-projects" class="department-project-list"></p>
+        </div>
+    </div>
+
+}
